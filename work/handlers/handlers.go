@@ -33,18 +33,20 @@ func GetUsers(c echo.Context) error {
 			}
 	}
 
-	if aboveAgeStr != "" && belowAgeStr != "" && belowAge > aboveAge {
-			return c.String(http.StatusBadRequest, "The age setting is wrong.")
-	}
-
 	var uLis []warehouse.User
 	for _, v := range warehouse.UserWH.UserList {
+		if aboveAgeStr != "" && belowAgeStr != "" && belowAge >= aboveAge{
+			if  aboveAge <= v.Age && belowAge >= v.Age{
+				uLis = append(uLis, v)
+			}
+		}else{
 			if aboveAgeStr != "" && v.Age >= aboveAge {
 				uLis = append(uLis, v)
 			}
 			if belowAgeStr != "" && v.Age <= belowAge {
 				uLis = append(uLis, v)
 			}
+		}
 	}
 
 	return c.JSON(http.StatusOK, uLis)
