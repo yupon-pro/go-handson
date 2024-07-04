@@ -1,0 +1,13 @@
+services:
+  app:
+    container_name: "go-handson"
+    build: . 
+    tty: true
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 8081:8080
+    volumes:
+      - type: bind
+        source: ./work
+        target: /work
